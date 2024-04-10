@@ -32,12 +32,18 @@ void AWorker::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	PlayerInputComponent->BindAxis(TEXT("WalkForward"), this, &AWorker::WalkForward);
-	PlayerInputComponent->BindAxis(TEXT("WalkRight"), this, &AWorker::TurnRight);
+	PlayerInputComponent->BindAxis(TEXT("WalkRight"), this, &AWorker::WalkRight);
+	PlayerInputComponent->BindAxis(TEXT("TurnRight"), this, &AWorker::TurnRight);
 }
 
 void AWorker::WalkForward(float Value)
 {
 	AddMovementInput(GetActorForwardVector() * Value * WalkSpeed * UGameplayStatics::GetWorldDeltaSeconds(this));
+}
+
+void AWorker::WalkRight(float Value)
+{
+	AddMovementInput(GetActorRightVector() * Value * WalkSpeed * UGameplayStatics::GetWorldDeltaSeconds(this));
 }
 
 void AWorker::TurnRight(float Value)

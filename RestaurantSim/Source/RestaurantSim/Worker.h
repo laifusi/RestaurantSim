@@ -33,6 +33,7 @@ private:
 	float TurnSpeed = 100;
 
 	void WalkForward(float Value);
+	void WalkRight(float Value);
 	void TurnRight(float Value);
 
 };
