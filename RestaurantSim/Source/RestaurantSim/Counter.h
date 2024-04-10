@@ -32,4 +32,6 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* ColliderComp;
 
+	UPROPERTY(EditInstanceOnly)
+	TSubclassOf<class AIngredient> IngredientType;
 };

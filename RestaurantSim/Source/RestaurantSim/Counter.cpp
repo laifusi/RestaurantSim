@@ -3,6 +3,7 @@
 
 #include "Counter.h"
 #include "Components/BoxComponent.h"
+#include "Ingredient.h"
 
 // Sets default values
 ACounter::ACounter()
@@ -36,5 +37,6 @@ void ACounter::Tick(float DeltaTime)
 void ACounter::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Display, TEXT("OVERLAPPING WITH: %s"), *OtherActor->GetName());
+	UE_LOG(LogTemp, Display, TEXT("Ingredient: %s"), *IngredientType.Get()->GetName());
 }
 
