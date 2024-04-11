@@ -3,6 +3,7 @@
 
 #include "Worker.h"
 #include "Kismet/GameplayStatics.h"
+#include "Ingredient.h"
 
 // Sets default values
 AWorker::AWorker()
@@ -34,6 +35,19 @@ void AWorker::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis(TEXT("WalkForward"), this, &AWorker::WalkForward);
 	PlayerInputComponent->BindAxis(TEXT("WalkRight"), this, &AWorker::WalkRight);
 	PlayerInputComponent->BindAxis(TEXT("TurnRight"), this, &AWorker::TurnRight);
+}
+
+void AWorker::CounterDetected(TSubclassOf<AIngredient> IngredientType)
+{
+	DetectedIngredientType = IngredientType;
+}
+
+void AWorker::LeftCounter(TSubclassOf<AIngredient> IngredientType)
+{
+	if (DetectedIngredientType == IngredientType)
+	{
+		DetectedIngredientType = nullptr;
+	}
 }
 
 void AWorker::WalkForward(float Value)

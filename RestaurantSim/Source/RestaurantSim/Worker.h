@@ -26,11 +26,17 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void CounterDetected(TSubclassOf<class AIngredient> IngredientType);
+	void LeftCounter(TSubclassOf<AIngredient> IngredientType);
+
 private:
 	UPROPERTY(EditAnywhere)
 	float WalkSpeed = 100;
 	UPROPERTY(EditAnywhere)
 	float TurnSpeed = 100;
+
+	UPROPERTY(VisibleInstanceOnly)
+	TSubclassOf<AIngredient> DetectedIngredientType;
 
 	void WalkForward(float Value);
 	void WalkRight(float Value);

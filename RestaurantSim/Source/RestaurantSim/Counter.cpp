@@ -4,6 +4,7 @@
 #include "Counter.h"
 #include "Components/BoxComponent.h"
 #include "Ingredient.h"
+#include "Worker.h"
 
 // Sets default values
 ACounter::ACounter()
@@ -39,11 +40,23 @@ void ACounter::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 {
 	UE_LOG(LogTemp, Display, TEXT("OVERLAPPING WITH: %s"), *OtherActor->GetName());
 	UE_LOG(LogTemp, Display, TEXT("Ingredient: %s"), *IngredientType.Get()->GetName());
+
+	AWorker* Worker = Cast<AWorker>(OtherActor);
+	if (Worker)
+	{
+		Worker->CounterDetected(IngredientType);
+	}
 }
 
 void ACounter::OnActorEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	UE_LOG(LogTemp, Display, TEXT("ENDED OVERLAPPING WITH: %s"), *OtherActor->GetName());
 	UE_LOG(LogTemp, Display, TEXT("Ingredient: %s"), *IngredientType.Get()->GetName());
+
+	AWorker* Worker = Cast<AWorker>(OtherActor);
+	if (Worker)
+	{
+		Worker->LeftCounter(IngredientType);
+	}
 }
 
