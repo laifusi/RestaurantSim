@@ -25,6 +25,7 @@ void ACounter::BeginPlay()
 	Super::BeginPlay();
 	
 	ColliderComp->OnComponentBeginOverlap.AddDynamic(this, &ACounter::OnActorOverlap);
+	ColliderComp->OnComponentEndOverlap.AddDynamic(this, &ACounter::OnActorEndOverlap);
 }
 
 // Called every frame
@@ -37,6 +38,12 @@ void ACounter::Tick(float DeltaTime)
 void ACounter::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Display, TEXT("OVERLAPPING WITH: %s"), *OtherActor->GetName());
+	UE_LOG(LogTemp, Display, TEXT("Ingredient: %s"), *IngredientType.Get()->GetName());
+}
+
+void ACounter::OnActorEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	UE_LOG(LogTemp, Display, TEXT("ENDED OVERLAPPING WITH: %s"), *OtherActor->GetName());
 	UE_LOG(LogTemp, Display, TEXT("Ingredient: %s"), *IngredientType.Get()->GetName());
 }
 
