@@ -42,6 +42,11 @@ void AWorker::CounterDetected(TSubclassOf<AIngredient> IngredientType)
 	DetectedIngredientType = IngredientType;
 }
 
+void AWorker::EmptyCounterDetected(bool Detected)
+{
+	bOnEmptyCounter = Detected;
+}
+
 void AWorker::LeftCounter(TSubclassOf<AIngredient> IngredientType)
 {
 	if (DetectedIngredientType == IngredientType)

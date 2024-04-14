@@ -27,6 +27,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void CounterDetected(TSubclassOf<class AIngredient> IngredientType);
+	void EmptyCounterDetected(bool Detected);
 	void LeftCounter(TSubclassOf<AIngredient> IngredientType);
 
 private:
@@ -37,6 +38,8 @@ private:
 
 	UPROPERTY(VisibleInstanceOnly)
 	TSubclassOf<AIngredient> DetectedIngredientType;
+	UPROPERTY(VisibleInstanceOnly)
+	bool bOnEmptyCounter;
 
 	void WalkForward(float Value);
 	void WalkRight(float Value);
