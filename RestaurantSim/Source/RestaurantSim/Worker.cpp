@@ -35,6 +35,8 @@ void AWorker::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis(TEXT("WalkForward"), this, &AWorker::WalkForward);
 	PlayerInputComponent->BindAxis(TEXT("WalkRight"), this, &AWorker::WalkRight);
 	PlayerInputComponent->BindAxis(TEXT("TurnRight"), this, &AWorker::TurnRight);
+	PlayerInputComponent->BindAction(TEXT("PickUp"), EInputEvent::IE_Pressed, this, &AWorker::PickUp);
+	PlayerInputComponent->BindAction(TEXT("PutDown"), EInputEvent::IE_Pressed, this, &AWorker::PutDown);
 }
 
 void AWorker::CounterDetected(TSubclassOf<AIngredient> IngredientType)
@@ -68,5 +70,28 @@ void AWorker::WalkRight(float Value)
 void AWorker::TurnRight(float Value)
 {
 	AddControllerYawInput(Value * TurnSpeed * UGameplayStatics::GetWorldDeltaSeconds(this));
+}
+
+void AWorker::PickUp()
+{
+	if (DetectedIngredientType)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PICKED UP: %s"), *DetectedIngredientType.Get()->GetName());
+		PickedUpIngredient = DetectedIngredientType;
+	}
+}
+
+void AWorker::PutDown()
+{
+	if (bOnEmptyCounter && PickedUpIngredient)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PUT DOWN: %s"), *PickedUpIngredient.Get()->GetName());
+		PickedUpIngredient = nullptr;
+		// Add the ingredient to the sandwich
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("NOT PUT DOWN: On Empty Counter - %i"), bOnEmptyCounter);
+	}
 }
 

@@ -39,10 +39,14 @@ private:
 	UPROPERTY(VisibleInstanceOnly)
 	TSubclassOf<AIngredient> DetectedIngredientType;
 	UPROPERTY(VisibleInstanceOnly)
+	TSubclassOf<AIngredient> PickedUpIngredient;
+	UPROPERTY(VisibleInstanceOnly)
 	bool bOnEmptyCounter;
 
 	void WalkForward(float Value);
 	void WalkRight(float Value);
 	void TurnRight(float Value);
+	void PickUp();
+	void PutDown();
 
 };
