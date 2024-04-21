@@ -4,6 +4,7 @@
 #include "Worker.h"
 #include "Kismet/GameplayStatics.h"
 #include "Ingredient.h"
+#include "Sandwich.h"
 
 // Sets default values
 AWorker::AWorker()
@@ -44,9 +45,10 @@ void AWorker::CounterDetected(TSubclassOf<AIngredient> IngredientType)
 	DetectedIngredientType = IngredientType;
 }
 
-void AWorker::EmptyCounterDetected(bool Detected)
+void AWorker::EmptyCounterDetected(ASandwich* Sandwich)
 {
-	bOnEmptyCounter = Detected;
+	bOnEmptyCounter = Sandwich != nullptr;
+	DetectedSandwich = Sandwich;
 }
 
 void AWorker::LeftCounter(TSubclassOf<AIngredient> IngredientType)
@@ -86,8 +88,9 @@ void AWorker::PutDown()
 	if (bOnEmptyCounter && PickedUpIngredient)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PUT DOWN: %s"), *PickedUpIngredient.Get()->GetName());
-		PickedUpIngredient = nullptr;
 		// Add the ingredient to the sandwich
+		DetectedSandwich->AddIngredient(PickedUpIngredient);
+		PickedUpIngredient = nullptr;
 	}
 	else
 	{

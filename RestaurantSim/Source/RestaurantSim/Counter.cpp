@@ -5,6 +5,7 @@
 #include "Components/BoxComponent.h"
 #include "Ingredient.h"
 #include "Worker.h"
+#include "Sandwich.h"
 
 // Sets default values
 ACounter::ACounter()
@@ -41,16 +42,7 @@ void ACounter::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 	AWorker* Worker = Cast<AWorker>(OtherActor);
 	if (Worker)
 	{
-		if (IngredientType)
-		{
-			Worker->CounterDetected(IngredientType);
-			UE_LOG(LogTemp, Display, TEXT("OVERLAPPING WITH: %s"), *OtherActor->GetName());
-			UE_LOG(LogTemp, Display, TEXT("Ingredient: %s"), *IngredientType.Get()->GetName());
-		}
-		else
-		{
-			Worker->EmptyCounterDetected(true);
-		}
+		NotifyWorker(Worker, true);
 	}
 }
 
@@ -59,16 +51,12 @@ void ACounter::OnActorEndOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	AWorker* Worker = Cast<AWorker>(OtherActor);
 	if (Worker)
 	{
-		if (IngredientType)
-		{
-			UE_LOG(LogTemp, Display, TEXT("ENDED OVERLAPPING WITH: %s"), *OtherActor->GetName());
-			UE_LOG(LogTemp, Display, TEXT("Ingredient: %s"), *IngredientType.Get()->GetName());
-			Worker->LeftCounter(IngredientType);
-		}
-		else
-		{
-			Worker->EmptyCounterDetected(false);
-		}
+		NotifyWorker(Worker, false);
 	}
+}
+
+void ACounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping) const
+{
+	UE_LOG(LogTemp, Display, TEXT("Notifying Worker"));
 }
 
