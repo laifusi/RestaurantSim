@@ -4,16 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Sandwich.generated.h"
+#include "RestaurantMenu.generated.h"
+
+USTRUCT()
+struct FRecipe
+{
+	GENERATED_BODY()
+
+	FRecipe() {}
+
+	UPROPERTY(EditAnywhere)
+	FString RecipeName;
+
+	UPROPERTY(EditDefaultsOnly)
+	TArray<TSubclassOf<class AIngredient>> Ingredients;
+
+	UPROPERTY(EditInstanceOnly)
+	bool bIsAvailable;
+};
 
 UCLASS()
-class RESTAURANTSIM_API ASandwich : public AActor
+class RESTAURANTSIM_API ARestaurantMenu : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ASandwich();
+	ARestaurantMenu();
 
 protected:
 	// Called when the game starts or when spawned
@@ -23,10 +40,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void AddIngredient(TSubclassOf<class AIngredient> Ingredient);
-
 private:
-	UPROPERTY(VisibleInstanceOnly)
-	TArray<TSubclassOf<AIngredient>> IncludedIngredients;
+	UPROPERTY(EditAnywhere)
+	TArray<FRecipe> Recipes;
 
 };
