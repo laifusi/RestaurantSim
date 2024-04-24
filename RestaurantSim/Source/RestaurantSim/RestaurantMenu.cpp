@@ -31,7 +31,7 @@ FRecipe ARestaurantMenu::ChooseRandomRecipe() const
 	if (Recipes.Num() <= 0)
 		return FRecipe();
 
-	int32 RandId = FMath::RandRange(0, Recipes.Num());
+	int32 RandId = FMath::RandRange(0, Recipes.Num() - 1);
 	return Recipes[RandId];
 }
 

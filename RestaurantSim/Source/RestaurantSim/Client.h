@@ -24,8 +24,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void ChooseRecipe();
+	void SetRestaurantMenu(ARestaurantMenu* NewRestaurantMenu);
+
 private:
-	UPROPERTY(VisibleDefaultsOnly)
+	UPROPERTY(VisibleInstanceOnly)
 	FRecipe DesiredSandwich;
 
 	UPROPERTY()

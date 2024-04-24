@@ -15,7 +15,10 @@ AClient::AClient()
 void AClient::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
+void AClient::ChooseRecipe()
+{
 	if (RestaurantMenu)
 	{
 		DesiredSandwich = RestaurantMenu->ChooseRandomRecipe();
@@ -23,8 +26,14 @@ void AClient::BeginPlay()
 
 	if (!RestaurantMenu || DesiredSandwich.Ingredients.Num() <= 0)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("DESTROYED CLIENT"));
 		Destroy();
 	}
+}
+
+void AClient::SetRestaurantMenu(ARestaurantMenu* NewRestaurantMenu)
+{
+	RestaurantMenu = NewRestaurantMenu;
 }
 
 // Called every frame
