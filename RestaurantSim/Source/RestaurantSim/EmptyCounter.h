@@ -17,10 +17,10 @@ class RESTAURANTSIM_API AEmptyCounter : public ACounter
 private:
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class ASandwich> SandwichClass;
+	TSubclassOf<class ASandwichObject> SandwichClass;
 
 	UPROPERTY(VisibleInstanceOnly)
-	ASandwich* Sandwich;
+	ASandwichObject* Sandwich;
 
 protected:
 	// Called when the game starts or when spawned

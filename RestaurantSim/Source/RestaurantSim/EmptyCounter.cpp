@@ -3,14 +3,14 @@
 
 #include "EmptyCounter.h"
 #include "Worker.h"
-#include "Sandwich.h"
+#include "SandwichObject.h"
 
 // Called when the game starts or when spawned
 void AEmptyCounter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Sandwich = GetWorld()->SpawnActor<ASandwich>(SandwichClass);
+	Sandwich = GetWorld()->SpawnActor<ASandwichObject>(SandwichClass);
 }
 
 void AEmptyCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping) const

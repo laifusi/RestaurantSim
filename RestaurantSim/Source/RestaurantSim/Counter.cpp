@@ -5,7 +5,7 @@
 #include "Components/BoxComponent.h"
 #include "Ingredient.h"
 #include "Worker.h"
-#include "Sandwich.h"
+#include "SandwichObject.h"
 
 // Sets default values
 ACounter::ACounter()

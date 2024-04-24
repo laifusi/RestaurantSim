@@ -4,7 +4,7 @@
 #include "Worker.h"
 #include "Kismet/GameplayStatics.h"
 #include "Ingredient.h"
-#include "Sandwich.h"
+#include "SandwichObject.h"
 
 // Sets default values
 AWorker::AWorker()
@@ -45,7 +45,7 @@ void AWorker::CounterDetected(TSubclassOf<AIngredient> IngredientType)
 	DetectedIngredientType = IngredientType;
 }
 
-void AWorker::EmptyCounterDetected(ASandwich* Sandwich)
+void AWorker::EmptyCounterDetected(ASandwichObject* Sandwich)
 {
 	bOnEmptyCounter = Sandwich != nullptr;
 	DetectedSandwich = Sandwich;

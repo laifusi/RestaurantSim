@@ -6,12 +6,12 @@
 #include "GameFramework/Actor.h"
 #include "RestaurantMenu.generated.h"
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FRecipe
 {
-	GENERATED_BODY()
+	GENERATED_USTRUCT_BODY()
 
-	FRecipe() {}
+	FRecipe() { RecipeName = "EMPTY"; }
 
 	UPROPERTY(EditAnywhere)
 	FString RecipeName;
@@ -40,8 +40,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	FRecipe ChooseRandomRecipe() const;
+
 private:
 	UPROPERTY(EditAnywhere)
 	TArray<FRecipe> Recipes;
-
 };

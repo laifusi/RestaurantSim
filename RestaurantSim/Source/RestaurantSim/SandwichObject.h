@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Sandwich.generated.h"
+#include "SandwichObject.generated.h"
 
 UCLASS()
-class RESTAURANTSIM_API ASandwich : public AActor
+class RESTAURANTSIM_API ASandwichObject : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ASandwich();
+	ASandwichObject();
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,7 +26,7 @@ public:
 	void AddIngredient(TSubclassOf<class AIngredient> Ingredient);
 
 private:
-	UPROPERTY(VisibleInstanceOnly)
+	UPROPERTY(VisibleAnywhere)
 	TArray<TSubclassOf<AIngredient>> IncludedIngredients;
 
 };
