@@ -27,8 +27,9 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void CounterDetected(TSubclassOf<class AIngredient> IngredientType);
-	void EmptyCounterDetected(class ASandwichObject* Sandwich);
 	void LeftCounter(TSubclassOf<AIngredient> IngredientType);
+	void EmptyCounterDetected(class ASandwichObject* Sandwich);
+	void ClientCounterDetected(class AClient* Client);
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -44,6 +45,13 @@ private:
 	bool bOnEmptyCounter;
 	UPROPERTY(VisibleInstanceOnly)
 	class ASandwichObject* DetectedSandwich;
+	UPROPERTY(VisibleInstanceOnly)
+	class ASandwichObject* PickedUpSandwich;
+	UPROPERTY(VisibleInstanceOnly)
+	bool bOnClientCounter;
+	UPROPERTY(VisibleInstanceOnly)
+	class AClient* DetectedClient;
+
 
 	void WalkForward(float Value);
 	void WalkRight(float Value);

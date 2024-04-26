@@ -13,6 +13,9 @@ UCLASS()
 class RESTAURANTSIM_API ARestaurantGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+	void SetClientCounter(class AClientCounter* NewClientCounter);
 	
 protected:
 	virtual void BeginPlay() override;
@@ -28,6 +31,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class ARestaurantMenu> RestaurantMenuClass;
 	ARestaurantMenu* RestaurantMenu;
+	AClientCounter* ClientCounter;
 
 	void SpawnClient();
 };

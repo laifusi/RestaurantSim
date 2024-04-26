@@ -45,18 +45,24 @@ void AWorker::CounterDetected(TSubclassOf<AIngredient> IngredientType)
 	DetectedIngredientType = IngredientType;
 }
 
-void AWorker::EmptyCounterDetected(ASandwichObject* Sandwich)
-{
-	bOnEmptyCounter = Sandwich != nullptr;
-	DetectedSandwich = Sandwich;
-}
-
 void AWorker::LeftCounter(TSubclassOf<AIngredient> IngredientType)
 {
 	if (DetectedIngredientType == IngredientType)
 	{
 		DetectedIngredientType = nullptr;
 	}
+}
+
+void AWorker::EmptyCounterDetected(ASandwichObject* Sandwich)
+{
+	bOnEmptyCounter = Sandwich != nullptr;
+	DetectedSandwich = Sandwich;
+}
+
+void AWorker::ClientCounterDetected(AClient* Client)
+{
+	bOnClientCounter = Client != nullptr;
+	DetectedClient = Client;
 }
 
 void AWorker::WalkForward(float Value)
@@ -81,20 +87,36 @@ void AWorker::PickUp()
 		UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PICKED UP: %s"), *DetectedIngredientType.Get()->GetName());
 		PickedUpIngredient = DetectedIngredientType;
 	}
+	else if (DetectedSandwich)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("SANDWICH PICKED UP"));
+		PickedUpSandwich = DetectedSandwich;
+	}
 }
 
 void AWorker::PutDown()
 {
-	if (bOnEmptyCounter && PickedUpIngredient)
+	if (bOnEmptyCounter)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PUT DOWN: %s"), *PickedUpIngredient.Get()->GetName());
-		// Add the ingredient to the sandwich
-		DetectedSandwich->AddIngredient(PickedUpIngredient);
-		PickedUpIngredient = nullptr;
+		if (PickedUpIngredient)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PUT DOWN: %s"), *PickedUpIngredient.Get()->GetName());
+			// Add the ingredient to the sandwich
+			DetectedSandwich->AddIngredient(PickedUpIngredient);
+			PickedUpIngredient = nullptr;
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("NOT PUT DOWN: No Ingredient"), bOnEmptyCounter);
+		}
 	}
-	else
+	else if(bOnClientCounter)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("NOT PUT DOWN: On Empty Counter - %i"), bOnEmptyCounter);
+		if (DetectedClient && PickedUpSandwich)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("GIVING SANDWICH: %s"), *PickedUpSandwich->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("TO CLIENT"));
+		}
 	}
 }
 
