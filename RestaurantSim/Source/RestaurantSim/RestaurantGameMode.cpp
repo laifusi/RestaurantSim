@@ -13,7 +13,7 @@ void ARestaurantGameMode::BeginPlay()
 	RestaurantMenu = GetWorld()->SpawnActor<ARestaurantMenu>(RestaurantMenuClass);
 
 	FTimerHandle ClientSpawnTimer;
-	GetWorldTimerManager().SetTimer(ClientSpawnTimer, this, &ARestaurantGameMode::SpawnClient, StartClientSpawn, true, ClientSpawnRate);
+	GetWorldTimerManager().SetTimer(ClientSpawnTimer, this, &ARestaurantGameMode::SpawnClient, ClientSpawnRate, true, StartClientSpawn);
 
 }
 
