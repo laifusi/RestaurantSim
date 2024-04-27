@@ -6,6 +6,8 @@
 #include "Client.h"
 #include "RestaurantMenu.h"
 #include "ClientCounter.h"
+#include "SandwichObject.h"
+#include "Ingredient.h"
 
 void ARestaurantGameMode::BeginPlay()
 {
@@ -21,6 +23,27 @@ void ARestaurantGameMode::BeginPlay()
 void ARestaurantGameMode::SetClientCounter(AClientCounter* NewClientCounter)
 {
 	ClientCounter = NewClientCounter;
+}
+
+void ARestaurantGameMode::CheckSandwich(ASandwichObject* Sandwich, AClient* CurrentClient)
+{
+	bool bIsCorrect = true;
+	TArray<TSubclassOf<AIngredient>> SandwichIngredients = Sandwich->GetIngredients();
+	TArray<TSubclassOf<AIngredient>> DesiredIngredients = CurrentClient->GetDesiredIngredients();
+	for (int32 i = 0; i < DesiredIngredients.Num(); i++)
+	{
+		if (DesiredIngredients[i] != SandwichIngredients[i])
+		{
+			UE_LOG(LogTemp, Warning, TEXT("WRONG SANDWICH"));
+			bIsCorrect = false;
+			break;
+		}
+	}
+
+	if (bIsCorrect)
+	{
+		//DESTROY CLIENT
+	}
 }
 
 void ARestaurantGameMode::SpawnClient()

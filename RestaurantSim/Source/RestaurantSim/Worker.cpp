@@ -5,13 +5,13 @@
 #include "Kismet/GameplayStatics.h"
 #include "Ingredient.h"
 #include "SandwichObject.h"
+#include "ClientCounter.h"
 
 // Sets default values
 AWorker::AWorker()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -59,10 +59,10 @@ void AWorker::EmptyCounterDetected(ASandwichObject* Sandwich)
 	DetectedSandwich = Sandwich;
 }
 
-void AWorker::ClientCounterDetected(AClient* Client)
+void AWorker::ClientCounterDetected(AClientCounter* ClientCounter)
 {
-	bOnClientCounter = Client != nullptr;
-	DetectedClient = Client;
+	bOnClientCounter = ClientCounter != nullptr;
+	DetectedClientCounter = ClientCounter;
 }
 
 void AWorker::WalkForward(float Value)
@@ -112,10 +112,11 @@ void AWorker::PutDown()
 	}
 	else if(bOnClientCounter)
 	{
-		if (DetectedClient && PickedUpSandwich)
+		if (DetectedClientCounter && PickedUpSandwich)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("GIVING SANDWICH: %s"), *PickedUpSandwich->GetName());
 			UE_LOG(LogTemp, Warning, TEXT("TO CLIENT"));
+			DetectedClientCounter->CheckSandwich(PickedUpSandwich);
 		}
 	}
 }

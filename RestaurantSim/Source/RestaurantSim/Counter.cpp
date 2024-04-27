@@ -42,7 +42,7 @@ void ACounter::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 	AWorker* Worker = Cast<AWorker>(OtherActor);
 	if (Worker)
 	{
-		NotifyWorker(Worker, true);
+		NotifyWorker(Worker, true, OverlappedComponent);
 	}
 }
 
@@ -51,11 +51,11 @@ void ACounter::OnActorEndOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	AWorker* Worker = Cast<AWorker>(OtherActor);
 	if (Worker)
 	{
-		NotifyWorker(Worker, false);
+		NotifyWorker(Worker, false, OverlappedComponent);
 	}
 }
 
-void ACounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping) const
+void ACounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const
 {
 	UE_LOG(LogTemp, Display, TEXT("Notifying Worker"));
 }

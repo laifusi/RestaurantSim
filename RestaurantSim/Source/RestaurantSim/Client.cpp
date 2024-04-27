@@ -2,6 +2,7 @@
 
 
 #include "Client.h"
+#include "Ingredient.h"
 
 // Sets default values
 AClient::AClient()
@@ -34,6 +35,11 @@ void AClient::ChooseRecipe()
 void AClient::SetRestaurantMenu(ARestaurantMenu* NewRestaurantMenu)
 {
 	RestaurantMenu = NewRestaurantMenu;
+}
+
+TArray<TSubclassOf<AIngredient>> AClient::GetDesiredIngredients()
+{
+	return DesiredSandwich.Ingredients;
 }
 
 // Called every frame

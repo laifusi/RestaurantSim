@@ -13,9 +13,9 @@ void AEmptyCounter::BeginPlay()
 	Sandwich = GetWorld()->SpawnActor<ASandwichObject>(SandwichClass);
 }
 
-void AEmptyCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping) const
+void AEmptyCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const
 {
-	Super::NotifyWorker(Worker, bIsOverlapping);
+	Super::NotifyWorker(Worker, bIsOverlapping, OverlappedComponent);
 
 	Worker->EmptyCounterDetected(bIsOverlapping ? Sandwich : nullptr);
 }

@@ -16,13 +16,14 @@ class RESTAURANTSIM_API ARestaurantGameMode : public AGameModeBase
 
 public:
 	void SetClientCounter(class AClientCounter* NewClientCounter);
+	void CheckSandwich(class ASandwichObject* Sandwich, class AClient* CurrentClient);
 	
 protected:
 	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<class AClient> ClientClass;
+	TSubclassOf<AClient> ClientClass;
 	UPROPERTY(EditAnywhere)
 	float StartClientSpawn = 2;
 	UPROPERTY(EditAnywhere)

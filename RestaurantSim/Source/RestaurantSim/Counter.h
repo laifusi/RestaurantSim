@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	virtual void NotifyWorker(class AWorker* Worker, bool bIsOverlapping) const;
+	virtual void NotifyWorker(class AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const;
 
 public:	
 	// Called every frame

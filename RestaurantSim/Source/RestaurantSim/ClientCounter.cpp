@@ -22,16 +22,23 @@ void AClientCounter::AddNewClient(AClient* NewClient)
 	Clients.Add(NewClient);
 }
 
-void AClientCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping) const
+void AClientCounter::CheckSandwich(ASandwichObject* Sandwich)
 {
-	Super::NotifyWorker(Worker, bIsOverlapping);
+	GameMode->CheckSandwich(Sandwich, Clients[0]);
+}
 
-	if (Clients.Num() > 0)
+void AClientCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const
+{
+	Super::NotifyWorker(Worker, bIsOverlapping, OverlappedComponent);
+
+	bool bIsDetected = bIsOverlapping && Clients.Num() > 0;
+	
+	if (OverlappedComponent)
 	{
-		Worker->ClientCounterDetected(Clients[0]);
-	}
-	else
-	{
-		Worker->ClientCounterDetected(nullptr);
+		AClientCounter* Counter = Cast<AClientCounter>(OverlappedComponent->GetAttachmentRootActor());
+		if (Counter)
+		{
+			Worker->ClientCounterDetected(bIsDetected ? Counter : nullptr);
+		}
 	}
 }

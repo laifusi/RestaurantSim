@@ -16,13 +16,13 @@ class RESTAURANTSIM_API AClientCounter : public ACounter
 
 public:
 	void AddNewClient(class AClient* NewClient);
-
+	void CheckSandwich(class ASandwichObject* Sandwich);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	virtual void NotifyWorker(class AWorker* Worker, bool bIsOverlapping) const override;
+	virtual void NotifyWorker(class AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const override;
 
 private:
 	UPROPERTY(VisibleInstanceOnly)

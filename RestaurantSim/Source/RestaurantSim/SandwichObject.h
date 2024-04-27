@@ -25,6 +25,8 @@ public:
 
 	void AddIngredient(TSubclassOf<class AIngredient> Ingredient);
 
+	TArray<TSubclassOf<class AIngredient>> GetIngredients() const;
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	TArray<TSubclassOf<AIngredient>> IncludedIngredients;

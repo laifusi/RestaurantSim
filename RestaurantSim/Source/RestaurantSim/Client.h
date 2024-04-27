@@ -26,6 +26,7 @@ public:
 
 	void ChooseRecipe();
 	void SetRestaurantMenu(ARestaurantMenu* NewRestaurantMenu);
+	TArray<TSubclassOf<class AIngredient>> GetDesiredIngredients();
 
 private:
 	UPROPERTY(VisibleInstanceOnly)

@@ -29,7 +29,7 @@ public:
 	void CounterDetected(TSubclassOf<class AIngredient> IngredientType);
 	void LeftCounter(TSubclassOf<AIngredient> IngredientType);
 	void EmptyCounterDetected(class ASandwichObject* Sandwich);
-	void ClientCounterDetected(class AClient* Client);
+	void ClientCounterDetected(class AClientCounter* ClientCounter);
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -50,7 +50,9 @@ private:
 	UPROPERTY(VisibleInstanceOnly)
 	bool bOnClientCounter;
 	UPROPERTY(VisibleInstanceOnly)
-	class AClient* DetectedClient;
+	class AClientCounter* DetectedClientCounter;
+	//UPROPERTY(VisibleInstanceOnly)
+	//class AClient* DetectedClient;
 
 
 	void WalkForward(float Value);

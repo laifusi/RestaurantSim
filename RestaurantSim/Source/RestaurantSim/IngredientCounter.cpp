@@ -5,9 +5,9 @@
 #include "Worker.h"
 #include "Ingredient.h"
 
-void AIngredientCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping) const
+void AIngredientCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const
 {
-	Super::NotifyWorker(Worker, bIsOverlapping);
+	Super::NotifyWorker(Worker, bIsOverlapping, OverlappedComponent);
 
 	if (IngredientType)
 	{

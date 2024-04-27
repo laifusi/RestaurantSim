@@ -21,6 +21,6 @@ private:
 
 protected:
 
-	virtual void NotifyWorker(class AWorker* Worker, bool bIsOverlapping) const override;
+	virtual void NotifyWorker(class AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const override;
 	
 };

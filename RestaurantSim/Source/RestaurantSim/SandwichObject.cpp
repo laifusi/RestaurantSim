@@ -34,3 +34,8 @@ void ASandwichObject::AddIngredient(TSubclassOf<AIngredient> Ingredient)
 	}
 }
 
+TArray<TSubclassOf<AIngredient>> ASandwichObject::GetIngredients() const
+{
+	return IncludedIngredients;
+}
+
