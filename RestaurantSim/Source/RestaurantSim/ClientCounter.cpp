@@ -24,7 +24,21 @@ void AClientCounter::AddNewClient(AClient* NewClient)
 
 void AClientCounter::CheckSandwich(ASandwichObject* Sandwich)
 {
-	GameMode->CheckSandwich(Sandwich, Clients[0]);
+	if (Clients.Num() > 0 && Sandwich)
+	{
+		UE_LOG(LogTemp, Display, TEXT("CHECKING SANDWICH - We have clients"));
+		GameMode->CheckSandwich(Sandwich, Clients[0]);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("NO CLIENT OR SANDWICH"));
+	}
+}
+
+void AClientCounter::RemoveClient(AClient* CurrentClient)
+{
+	Clients.Remove(CurrentClient);
+	CurrentClient->Destroy();
 }
 
 void AClientCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const

@@ -9,13 +9,37 @@
 void AEmptyCounter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Sandwich = GetWorld()->SpawnActor<ASandwichObject>(SandwichClass);
 }
 
 void AEmptyCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const
 {
 	Super::NotifyWorker(Worker, bIsOverlapping, OverlappedComponent);
 
-	Worker->EmptyCounterDetected(bIsOverlapping ? Sandwich : nullptr);
+	UE_LOG(LogTemp, Warning, TEXT("EMPTY COUNTER"));
+	if (OverlappedComponent)
+	{
+		AEmptyCounter* Counter = Cast<AEmptyCounter>(OverlappedComponent->GetAttachmentRootActor());
+		if (Counter)
+		{
+			if (bIsOverlapping)
+			{
+				Worker->EmptyCounterDetected(Sandwich ? Sandwich : nullptr, Counter);
+			}
+			else
+			{
+				Worker->EmptyCounterDetected(nullptr, nullptr);
+			}
+		}
+	}
+}
+
+ASandwichObject* AEmptyCounter::CreateNewSandwich()
+{
+	Sandwich = GetWorld()->SpawnActor<ASandwichObject>(SandwichClass);
+	return Sandwich;
+}
+
+void AEmptyCounter::TakeSandwich()
+{
+	Sandwich = nullptr;
 }

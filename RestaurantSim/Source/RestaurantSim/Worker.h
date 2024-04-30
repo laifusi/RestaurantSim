@@ -28,7 +28,7 @@ public:
 
 	void CounterDetected(TSubclassOf<class AIngredient> IngredientType);
 	void LeftCounter(TSubclassOf<AIngredient> IngredientType);
-	void EmptyCounterDetected(class ASandwichObject* Sandwich);
+	void EmptyCounterDetected(class ASandwichObject* Sandwich, class AEmptyCounter* EmptyCounter);
 	void ClientCounterDetected(class AClientCounter* ClientCounter);
 
 private:
@@ -43,6 +43,8 @@ private:
 	TSubclassOf<AIngredient> PickedUpIngredient;
 	UPROPERTY(VisibleInstanceOnly)
 	bool bOnEmptyCounter;
+	UPROPERTY(VisibleInstanceOnly)
+	class AEmptyCounter* DetectedEmptyCounter;
 	UPROPERTY(VisibleInstanceOnly)
 	class ASandwichObject* DetectedSandwich;
 	UPROPERTY(VisibleInstanceOnly)

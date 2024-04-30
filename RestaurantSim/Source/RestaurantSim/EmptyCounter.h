@@ -28,4 +28,7 @@ protected:
 
 	virtual void NotifyWorker(class AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const override;
 	
+public:
+	class ASandwichObject* CreateNewSandwich();
+	void TakeSandwich();
 };

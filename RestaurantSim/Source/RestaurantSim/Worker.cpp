@@ -6,6 +6,7 @@
 #include "Ingredient.h"
 #include "SandwichObject.h"
 #include "ClientCounter.h"
+#include "EmptyCounter.h"
 
 // Sets default values
 AWorker::AWorker()
@@ -53,9 +54,10 @@ void AWorker::LeftCounter(TSubclassOf<AIngredient> IngredientType)
 	}
 }
 
-void AWorker::EmptyCounterDetected(ASandwichObject* Sandwich)
+void AWorker::EmptyCounterDetected(ASandwichObject* Sandwich, AEmptyCounter* EmptyCounter)
 {
-	bOnEmptyCounter = Sandwich != nullptr;
+	bOnEmptyCounter = EmptyCounter != nullptr;
+	DetectedEmptyCounter = EmptyCounter;
 	DetectedSandwich = Sandwich;
 }
 
@@ -87,10 +89,11 @@ void AWorker::PickUp()
 		UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PICKED UP: %s"), *DetectedIngredientType.Get()->GetName());
 		PickedUpIngredient = DetectedIngredientType;
 	}
-	else if (DetectedSandwich)
+	else if (DetectedSandwich && DetectedEmptyCounter)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("SANDWICH PICKED UP"));
 		PickedUpSandwich = DetectedSandwich;
+		DetectedEmptyCounter->TakeSandwich();
 	}
 }
 
@@ -100,6 +103,11 @@ void AWorker::PutDown()
 	{
 		if (PickedUpIngredient)
 		{
+			if (!DetectedSandwich)
+			{
+				DetectedSandwich = DetectedEmptyCounter->CreateNewSandwich();
+			}
+
 			UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PUT DOWN: %s"), *PickedUpIngredient.Get()->GetName());
 			// Add the ingredient to the sandwich
 			DetectedSandwich->AddIngredient(PickedUpIngredient);
@@ -117,6 +125,9 @@ void AWorker::PutDown()
 			UE_LOG(LogTemp, Warning, TEXT("GIVING SANDWICH: %s"), *PickedUpSandwich->GetName());
 			UE_LOG(LogTemp, Warning, TEXT("TO CLIENT"));
 			DetectedClientCounter->CheckSandwich(PickedUpSandwich);
+			PickedUpSandwich = nullptr;
+
+			// WE NEED TO DESTROY THE SANDWICH SOMEWHERE
 		}
 	}
 }
