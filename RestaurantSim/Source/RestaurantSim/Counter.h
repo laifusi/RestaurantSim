@@ -21,6 +21,11 @@ protected:
 
 	virtual void NotifyWorker(class AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const;
 
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* StaticMesh;
+	UPROPERTY(VisibleAnywhere)
+	class UBoxComponent* ColliderComp;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -31,9 +36,4 @@ public:
 	UFUNCTION()
 	void OnActorEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-private:
-	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* StaticMesh;
-	UPROPERTY(VisibleAnywhere)
-	class UBoxComponent* ColliderComp;
 };
