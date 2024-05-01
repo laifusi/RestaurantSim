@@ -19,6 +19,9 @@ ACounter::ACounter()
 	ColliderComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 	ColliderComp->SetupAttachment(StaticMesh);
 
+	SpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Ingredient Spawn Point"));
+	SpawnPoint->SetupAttachment(StaticMesh);
+
 }
 
 // Called when the game starts or when spawned

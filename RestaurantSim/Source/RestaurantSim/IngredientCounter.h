@@ -14,15 +14,10 @@ class RESTAURANTSIM_API AIngredientCounter : public ACounter
 {
 	GENERATED_BODY()
 
-public:
-	AIngredientCounter();
-
 private:
 
 	UPROPERTY(EditInstanceOnly)
 	TSubclassOf<class AIngredient> IngredientType;
-	UPROPERTY(VisibleAnywhere)
-	USceneComponent* IngredientSpawnPoint;
 
 protected:
 	// Called when the game starts or when spawned

@@ -31,6 +31,13 @@ void ASandwichObject::AddIngredient(TSubclassOf<AIngredient> Ingredient)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Adding ingredient: %s"), *Ingredient->GetName());
 		IncludedIngredients.Add(Ingredient);
+		FVector Location = GetActorLocation();
+		Location.Z += IncludedIngredients.Num() * IngredientOffset;
+		AActor* SpawnedIngredient = GetWorld()->SpawnActor(Ingredient, &Location);
+		if (SpawnedIngredient)
+		{
+			SpawnedIngredient->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+		}
 	}
 }
 

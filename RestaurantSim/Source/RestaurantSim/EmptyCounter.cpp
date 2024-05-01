@@ -36,6 +36,10 @@ void AEmptyCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping, UPrimitiv
 ASandwichObject* AEmptyCounter::CreateNewSandwich()
 {
 	Sandwich = GetWorld()->SpawnActor<ASandwichObject>(SandwichClass);
+	if (Sandwich)
+	{
+		Sandwich->AttachToComponent(SpawnPoint, FAttachmentTransformRules::KeepRelativeTransform);
+	}
 	return Sandwich;
 }
 

@@ -25,6 +25,8 @@ protected:
 	UStaticMeshComponent* StaticMesh;
 	UPROPERTY(VisibleAnywhere)
 	class UBoxComponent* ColliderComp;
+	UPROPERTY(VisibleAnywhere)
+	USceneComponent* SpawnPoint;
 
 public:	
 	// Called every frame

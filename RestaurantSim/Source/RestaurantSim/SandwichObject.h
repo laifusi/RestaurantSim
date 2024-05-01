@@ -30,5 +30,7 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere)
 	TArray<TSubclassOf<AIngredient>> IncludedIngredients;
+	UPROPERTY(EditAnywhere)
+	float IngredientOffset = 0.5;
 
 };
