@@ -28,6 +28,9 @@ public:
 	void SetRestaurantMenu(ARestaurantMenu* NewRestaurantMenu);
 	TArray<TSubclassOf<class AIngredient>> GetDesiredIngredients();
 
+	UFUNCTION(BlueprintPure)
+	FText GetDesiredSandwichName() const;
+
 private:
 	UPROPERTY(VisibleInstanceOnly)
 	FRecipe DesiredSandwich;

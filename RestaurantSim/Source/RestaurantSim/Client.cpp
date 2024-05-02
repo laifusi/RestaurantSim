@@ -42,6 +42,11 @@ TArray<TSubclassOf<AIngredient>> AClient::GetDesiredIngredients()
 	return DesiredSandwich.Ingredients;
 }
 
+FText AClient::GetDesiredSandwichName() const
+{
+	return FText::FromString(DesiredSandwich.RecipeName);
+}
+
 // Called every frame
 void AClient::Tick(float DeltaTime)
 {
