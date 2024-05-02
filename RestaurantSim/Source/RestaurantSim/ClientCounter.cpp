@@ -19,7 +19,13 @@ void AClientCounter::BeginPlay()
 
 void AClientCounter::AddNewClient(AClient* NewClient)
 {
-	Clients.Add(NewClient);
+	if (NewClient)
+	{
+		Clients.Add(NewClient);
+		FVector Location = SpawnPoint->GetComponentLocation() + Clients.Num() * ClientOffset;
+		NewClient->SetActorLocationAndRotation(Location, SpawnPoint->GetComponentQuat());
+		NewClient->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+	}
 }
 
 void AClientCounter::CheckSandwich(ASandwichObject* Sandwich)

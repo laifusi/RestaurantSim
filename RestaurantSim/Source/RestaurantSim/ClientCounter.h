@@ -28,6 +28,8 @@ protected:
 private:
 	UPROPERTY(VisibleInstanceOnly)
 	TArray<AClient*> Clients;
+	UPROPERTY(EditAnywhere)
+	FVector ClientOffset;
 
 	class ARestaurantGameMode* GameMode;
 };
