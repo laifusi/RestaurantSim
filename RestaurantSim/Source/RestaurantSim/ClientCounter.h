@@ -32,4 +32,5 @@ private:
 	FVector ClientOffset;
 
 	class ARestaurantGameMode* GameMode;
+	void MoveQueueUp();
 };

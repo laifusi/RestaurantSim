@@ -22,8 +22,10 @@ void AClientCounter::AddNewClient(AClient* NewClient)
 	if (NewClient)
 	{
 		Clients.Add(NewClient);
+		// THIS CAN BE REFACTORED - DUPLICATED CODE??
 		FVector Location = SpawnPoint->GetComponentLocation() + Clients.Num() * ClientOffset;
 		NewClient->SetActorLocationAndRotation(Location, SpawnPoint->GetComponentQuat());
+		//
 		NewClient->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
 	}
 }
@@ -45,6 +47,7 @@ void AClientCounter::RemoveClient(AClient* CurrentClient)
 {
 	Clients.Remove(CurrentClient);
 	CurrentClient->Destroy();
+	MoveQueueUp();
 }
 
 void AClientCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping, UPrimitiveComponent* OverlappedComponent) const
@@ -60,5 +63,15 @@ void AClientCounter::NotifyWorker(AWorker* Worker, bool bIsOverlapping, UPrimiti
 		{
 			Worker->ClientCounterDetected(bIsDetected ? Counter : nullptr);
 		}
+	}
+}
+
+void AClientCounter::MoveQueueUp()
+{
+	for (int32 i = 0; i < Clients.Num(); i++)
+	{
+		// THIS CAN BE REFACTORED - DUPLICATED CODE??
+		FVector Location = SpawnPoint->GetComponentLocation() + (i+1) * ClientOffset;
+		Clients[i]->SetActorLocation(Location);
 	}
 }
