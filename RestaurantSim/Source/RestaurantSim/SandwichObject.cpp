@@ -33,10 +33,15 @@ void ASandwichObject::AddIngredient(TSubclassOf<AIngredient> Ingredient)
 		IncludedIngredients.Add(Ingredient);
 		FVector Location = GetActorLocation();
 		Location.Z += IncludedIngredients.Num() * IngredientOffset;
-		AActor* SpawnedIngredient = GetWorld()->SpawnActor(Ingredient, &Location);
-		if (SpawnedIngredient)
+		AActor* SpawnedIngredientActor = GetWorld()->SpawnActor(Ingredient, &Location);
+		if (SpawnedIngredientActor)
 		{
-			SpawnedIngredient->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+			AIngredient* SpawnedIngredient = Cast<AIngredient>(SpawnedIngredientActor);
+			if (SpawnedIngredient)
+			{
+				IncludedIngredientObjects.Add(SpawnedIngredient);
+				SpawnedIngredient->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+			}
 		}
 	}
 }
@@ -44,5 +49,14 @@ void ASandwichObject::AddIngredient(TSubclassOf<AIngredient> Ingredient)
 TArray<TSubclassOf<AIngredient>> ASandwichObject::GetIngredients() const
 {
 	return IncludedIngredients;
+}
+
+void ASandwichObject::DestroySandwich()
+{
+	for (AIngredient* Ingredient : IncludedIngredientObjects)
+	{
+		Ingredient->Destroy();
+	}
+	Destroy();
 }
 

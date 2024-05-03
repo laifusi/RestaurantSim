@@ -24,12 +24,14 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void AddIngredient(TSubclassOf<class AIngredient> Ingredient);
-
 	TArray<TSubclassOf<class AIngredient>> GetIngredients() const;
+	void DestroySandwich();
 
 private:
 	UPROPERTY(VisibleAnywhere)
 	TArray<TSubclassOf<AIngredient>> IncludedIngredients;
+	UPROPERTY(VisibleAnywhere)
+	TArray<AIngredient*> IncludedIngredientObjects;
 	UPROPERTY(EditAnywhere)
 	float IngredientOffset = 0.5;
 

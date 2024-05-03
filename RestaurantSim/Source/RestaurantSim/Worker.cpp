@@ -129,7 +129,8 @@ void AWorker::PutDown()
 			UE_LOG(LogTemp, Warning, TEXT("GIVING SANDWICH: %s"), *PickedUpSandwich->GetName());
 			UE_LOG(LogTemp, Warning, TEXT("TO CLIENT"));
 			DetectedClientCounter->CheckSandwich(PickedUpSandwich);
-			PickedUpSandwich->Destroy();
+			PickedUpSandwich->DestroySandwich();
+			PickedUpSandwich = nullptr;
 		}
 	}
 }
