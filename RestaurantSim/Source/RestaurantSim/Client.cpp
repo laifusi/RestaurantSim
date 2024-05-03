@@ -42,6 +42,11 @@ TArray<TSubclassOf<AIngredient>> AClient::GetDesiredIngredients()
 	return DesiredSandwich.Ingredients;
 }
 
+int32 AClient::GetDesiredSandwichPrice() const
+{
+	return DesiredSandwich.Price;
+}
+
 FText AClient::GetDesiredSandwichName() const
 {
 	return FText::FromString(DesiredSandwich.RecipeName);

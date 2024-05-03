@@ -27,6 +27,7 @@ public:
 	void ChooseRecipe();
 	void SetRestaurantMenu(ARestaurantMenu* NewRestaurantMenu);
 	TArray<TSubclassOf<class AIngredient>> GetDesiredIngredients();
+	int32 GetDesiredSandwichPrice() const;
 
 	UFUNCTION(BlueprintPure)
 	FText GetDesiredSandwichName() const;

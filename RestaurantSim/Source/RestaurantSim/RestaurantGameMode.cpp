@@ -25,38 +25,6 @@ void ARestaurantGameMode::SetClientCounter(AClientCounter* NewClientCounter)
 	ClientCounter = NewClientCounter;
 }
 
-void ARestaurantGameMode::CheckSandwich(ASandwichObject* Sandwich, AClient* CurrentClient)
-{
-	bool bIsCorrect = true;
-	TArray<TSubclassOf<AIngredient>> SandwichIngredients = Sandwich->GetIngredients();
-	TArray<TSubclassOf<AIngredient>> DesiredIngredients = CurrentClient->GetDesiredIngredients();
-	
-	if (DesiredIngredients.Num() == SandwichIngredients.Num())
-	{
-		for (int32 i = 0; i < DesiredIngredients.Num(); i++)
-		{
-			if (DesiredIngredients[i] != SandwichIngredients[i])
-			{
-				UE_LOG(LogTemp, Warning, TEXT("WRONG SANDWICH"));
-				bIsCorrect = false;
-				break;
-			}
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("WRONG AMOUNT OF INGREDIENTS"));
-		bIsCorrect = false;
-	}
-
-	if (bIsCorrect)
-	{
-		//WIN POINTS
-	}
-	
-	ClientCounter->RemoveClient(CurrentClient);
-}
-
 void ARestaurantGameMode::SpawnClient()
 {
 	AClient* NewClient = GetWorld()->SpawnActor<AClient>(ClientClass);

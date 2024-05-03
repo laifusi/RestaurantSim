@@ -21,6 +21,9 @@ struct FRecipe
 
 	UPROPERTY(EditInstanceOnly)
 	bool bIsAvailable;
+
+	UPROPERTY(EditDefaultsOnly)
+	int32 Price;
 };
 
 UCLASS()

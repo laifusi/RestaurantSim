@@ -7,6 +7,8 @@
 #include "SandwichObject.h"
 #include "ClientCounter.h"
 #include "EmptyCounter.h"
+#include "Client.h"
+#include "GameFramework/PlayerState.h"
 
 // Sets default values
 AWorker::AWorker()
@@ -128,10 +130,52 @@ void AWorker::PutDown()
 		{
 			UE_LOG(LogTemp, Warning, TEXT("GIVING SANDWICH: %s"), *PickedUpSandwich->GetName());
 			UE_LOG(LogTemp, Warning, TEXT("TO CLIENT"));
-			DetectedClientCounter->CheckSandwich(PickedUpSandwich);
+			CheckSandwich(PickedUpSandwich, DetectedClientCounter->GetCurrentClient());
 			PickedUpSandwich->DestroySandwich();
 			PickedUpSandwich = nullptr;
 		}
 	}
+}
+
+
+void AWorker::CheckSandwich(ASandwichObject* Sandwich, AClient* CurrentClient)
+{
+	bool bIsCorrect = true;
+	TArray<TSubclassOf<AIngredient>> SandwichIngredients = Sandwich->GetIngredients();
+	TArray<TSubclassOf<AIngredient>> DesiredIngredients = CurrentClient->GetDesiredIngredients();
+
+	if (DesiredIngredients.Num() == SandwichIngredients.Num())
+	{
+		for (int32 i = 0; i < DesiredIngredients.Num(); i++)
+		{
+			if (DesiredIngredients[i] != SandwichIngredients[i])
+			{
+				UE_LOG(LogTemp, Warning, TEXT("WRONG SANDWICH"));
+				bIsCorrect = false;
+				break;
+			}
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("WRONG AMOUNT OF INGREDIENTS"));
+		bIsCorrect = false;
+	}
+
+	if (bIsCorrect)
+	{
+		int32 PointsWon = CurrentClient->GetDesiredSandwichPrice();
+		AController* PlayerController = GetController();
+		if (PlayerController)
+		{
+			APlayerState* State = PlayerController->GetPlayerState<APlayerState>();
+			if (State)
+			{
+				State->Score += PointsWon;
+			}
+		}
+	}
+
+	DetectedClientCounter->RemoveClient(CurrentClient);
 }
 

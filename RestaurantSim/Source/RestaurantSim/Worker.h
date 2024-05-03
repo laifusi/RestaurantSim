@@ -65,5 +65,6 @@ private:
 	void TurnRight(float Value);
 	void PickUp();
 	void PutDown();
+	void CheckSandwich(ASandwichObject* Sandwich, class AClient* CurrentClient);
 
 };

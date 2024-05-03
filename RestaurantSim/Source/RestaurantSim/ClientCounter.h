@@ -16,8 +16,8 @@ class RESTAURANTSIM_API AClientCounter : public ACounter
 
 public:
 	void AddNewClient(class AClient* NewClient);
-	void CheckSandwich(class ASandwichObject* Sandwich);
 	void RemoveClient(AClient* CurrentClient);
+	AClient* GetCurrentClient() const;
 
 protected:
 	// Called when the game starts or when spawned
