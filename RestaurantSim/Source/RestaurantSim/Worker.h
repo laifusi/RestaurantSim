@@ -56,6 +56,9 @@ private:
 	//UPROPERTY(VisibleInstanceOnly)
 	//class AClient* DetectedClient;
 
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* TrayMesh;
+
 
 	void WalkForward(float Value);
 	void WalkRight(float Value);

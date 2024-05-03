@@ -13,6 +13,9 @@ AWorker::AWorker()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	TrayMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tray Mesh"));
+	TrayMesh->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -94,6 +97,7 @@ void AWorker::PickUp()
 		UE_LOG(LogTemp, Warning, TEXT("SANDWICH PICKED UP"));
 		PickedUpSandwich = DetectedSandwich;
 		DetectedEmptyCounter->TakeSandwich();
+		PickedUpSandwich->AttachToComponent(TrayMesh, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	}
 }
 
@@ -125,9 +129,7 @@ void AWorker::PutDown()
 			UE_LOG(LogTemp, Warning, TEXT("GIVING SANDWICH: %s"), *PickedUpSandwich->GetName());
 			UE_LOG(LogTemp, Warning, TEXT("TO CLIENT"));
 			DetectedClientCounter->CheckSandwich(PickedUpSandwich);
-			PickedUpSandwich = nullptr;
-
-			// WE NEED TO DESTROY THE SANDWICH SOMEWHERE
+			PickedUpSandwich->Destroy();
 		}
 	}
 }
