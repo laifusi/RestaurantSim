@@ -93,6 +93,16 @@ void AWorker::PickUp()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PICKED UP: %s"), *DetectedIngredientType.Get()->GetName());
 		PickedUpIngredient = DetectedIngredientType;
+		// We destroy the previous ingredient if we have one
+		if (SpawnedIngredient)
+		{
+			SpawnedIngredient->Destroy();
+		}
+		SpawnedIngredient = GetWorld()->SpawnActor<AActor>(DetectedIngredientType);
+		if (SpawnedIngredient)
+		{
+			SpawnedIngredient->AttachToComponent(TrayMesh, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+		}
 	}
 	else if (DetectedSandwich && DetectedEmptyCounter)
 	{
@@ -117,6 +127,10 @@ void AWorker::PutDown()
 			UE_LOG(LogTemp, Warning, TEXT("INGREDIENT PUT DOWN: %s"), *PickedUpIngredient.Get()->GetName());
 			// Add the ingredient to the sandwich
 			DetectedSandwich->AddIngredient(PickedUpIngredient);
+			if (SpawnedIngredient)
+			{
+				SpawnedIngredient->Destroy();
+			}
 			PickedUpIngredient = nullptr;
 		}
 		else

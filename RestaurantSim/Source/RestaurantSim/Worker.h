@@ -59,6 +59,8 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* TrayMesh;
 
+	AActor* SpawnedIngredient;
+
 
 	void WalkForward(float Value);
 	void WalkRight(float Value);
